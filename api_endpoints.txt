@@ -1,0 +1,100 @@
+### API Endpoints for QuantumFusion Solutions
+
+**Base URL:** `http://localhost:8080`
+
+---
+
+### Authentication
+
+*   **Register User**
+    *   **POST** `/api/auth/register`
+    *   **Body (raw, JSON):**
+        ```json
+        {
+            "username": "testuser",
+            "password": "password123"
+        }
+        ```
+
+*   **Login User**
+    *   **POST** `/api/auth/login`
+    *   **Body (raw, JSON):**
+        ```json
+        {
+            "username": "testuser",
+            "password": "password123"
+        }
+        ```
+
+---
+
+### User Profiles
+
+*   **Create or Update Profile**
+    *   **POST** `/api/profiles`
+    *   **Body (raw, JSON):**
+        ```json
+        {
+            "userId": "testuser",
+            "fullName": "Test User",
+            "skills": ["Java", "Spring Boot"],
+            "experience": "5 years",
+            "education": "B.S. in Computer Science"
+        }
+        ```
+
+*   **Get Profile by User ID**
+    *   **GET** `/api/profiles/user/{userId}`
+
+*   **Get Profile with Job Recommendations**
+    *   **GET** `/api/profiles/user/{userId}/recommendations`
+
+---
+
+### Jobs
+
+*   **Create Job**
+    *   **POST** `/api/jobs`
+    *   **Body (raw, JSON):**
+        ```json
+        {
+            "title": "Software Engineer",
+            "company": "QuantumFusion Solutions",
+            "description": "Developing next-gen AI solutions.",
+            "recruiterId": "recruiter1"
+        }
+        ```
+
+*   **Get All Jobs**
+    *   **GET** `/api/jobs`
+
+*   **Get Job by ID**
+    *   **GET** `/api/jobs/{jobId}`
+
+---
+
+### Job Applications
+
+*   **Apply for Job**
+    *   **POST** `/api/applications/apply`
+    *   **Body (raw, JSON):**
+        ```json
+        {
+            "userId": "testuser",
+            "jobId": "<your_job_id>"
+        }
+        ```
+
+---
+
+### AI-Powered Features
+
+*   **Generate Cover Letter**
+    *   **POST** `/api/cover-letter/generate`
+    *   **Body (raw, JSON):**
+        ```json
+        {
+            "userId": "testuser",
+            "jobId": "<your_job_id>"
+        }
+        ```
