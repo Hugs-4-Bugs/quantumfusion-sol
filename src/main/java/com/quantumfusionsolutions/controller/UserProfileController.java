@@ -21,7 +21,7 @@ public class UserProfileController {
     @Autowired
     private JobRecommendationService jobRecommendationService;
 
-    @PostMapping
+    @PostMapping("/addUser")
     public UserProfile createOrUpdateProfile(@RequestBody UserProfile userProfile) {
         return userProfileService.createOrUpdateProfile(userProfile);
     }

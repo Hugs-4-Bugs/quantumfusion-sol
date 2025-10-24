@@ -1,29 +1,34 @@
 package com.quantumfusionsolutions.controller;
 
-import com.quantumfusionsolutions.dto.LoginRequest;
-import com.quantumfusionsolutions.dto.SignupRequest;
-import com.quantumfusionsolutions.model.User;
-import com.quantumfusionsolutions.service.AuthService;
+import com.quantumfusionsolutions.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
     @Autowired
-    private AuthService authService;
+    private UserService userService;
 
-    @PostMapping("/signup")
-    public User signup(@RequestBody SignupRequest signupRequest) {
-        return authService.signup(signupRequest.getFullName(), signupRequest.getEmail(), signupRequest.getPassword());
+    // Step 1: Send OTP
+    @PostMapping("/signup/sendOtp")
+    public ResponseEntity<String> sendOtp(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        return userService.sendSignupOtp(email);
     }
 
-    @PostMapping("/login")
-    public User login(@RequestBody LoginRequest loginRequest) {
-        return authService.login(loginRequest.getEmail(), loginRequest.getPassword());
+    // Step 2: Verify OTP and signup
+    @PostMapping("/signup/verifyOtp")
+    public ResponseEntity<String> verifyOtp(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        String otp = request.get("otp");
+        String fullName = request.get("fullName");
+        String password = request.get("password");
+        String role = request.get("role"); // get role from request
+        return userService.verifyOtpAndSignup(email, otp, fullName, password, role);
     }
 }
